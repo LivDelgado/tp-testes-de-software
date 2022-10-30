@@ -1,6 +1,6 @@
 import typer
-from comandos import lista_app, compras_app, mercados_app
 
+from comandos import compras_app, lista_app, mercados_app
 from usuario import UsuarioService
 
 app = typer.Typer()

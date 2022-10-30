@@ -82,14 +82,12 @@ class Usuario:
     def obter_compra_mais_cara(self, mercado: Mercado | None = None) -> Compra:
         if mercado:
             return max(
-                [
-                    compra.valor_total
-                    for compra in self.__compras_realizadas
-                    if compra.mercado == mercado
-                ]
+                compra.valor_total
+                for compra in self.__compras_realizadas
+                if compra.mercado == mercado
             )
 
-        return max([compra.valor_total for compra in self.__compras_realizadas])
+        return max(compra.valor_total for compra in self.__compras_realizadas)
 
     def indicar_mercado_compra(self, lista_compras: ListaCompras) -> Mercado:
         """

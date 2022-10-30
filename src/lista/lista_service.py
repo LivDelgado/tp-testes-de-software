@@ -1,8 +1,8 @@
-from usuario import Usuario
 from typing import List
 
 from item import Item
 from lista import ListaCompras
+from usuario import Usuario
 
 
 class ListaService:

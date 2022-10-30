@@ -2,9 +2,9 @@ from dataclasses import dataclass, field
 from datetime import date
 from decimal import Decimal
 from typing import List, Optional
-from item.item_comprado import ItemComprado, Item
-from lista.lista_compras import ListaCompras
 
+from item.item_comprado import Item, ItemComprado
+from lista.lista_compras import ListaCompras
 from mercado.mercado import Mercado
 
 

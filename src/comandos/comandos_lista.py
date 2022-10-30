@@ -1,6 +1,7 @@
 from typing import List, Optional
-from rich.prompt import Prompt
+
 import typer
+from rich.prompt import Prompt
 
 from lista import ListaService
 from usuario import UsuarioService
