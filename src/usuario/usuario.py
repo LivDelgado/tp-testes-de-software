@@ -16,16 +16,26 @@ class Usuario:
         return self.__listas
 
     def obter_lista(self, nome: str) -> Optional[ListaCompras]:
-        return next((lista for lista in self.__listas if lista.nome == nome), None)
+        for lista in self.__listas:
+            if lista.nome == nome:
+                return lista
+        return None
 
     def adicionar_lista(self, lista: ListaCompras) -> None:
         if (self.obter_lista(lista.nome)):
             raise ValueError("Não é permitido adicionar mais de uma lista com o mesmo nome")
         
         self.__listas.append(lista)
+    
+    def remover_lista(self, nome: str) -> None:
+        lista = self.obter_lista(nome)
+        if not lista:
+            raise ValueError("Essa lista não existe")
 
-    def remover_lista(self, lista: ListaCompras) -> None:
-        self.__listas.remove(lista)
+        try:
+            self.__listas.remove(lista)
+        except Exception as error:
+            raise ValueError("Não existe esse item na lista") from error
 
     def obter_historico_compras(self) -> List[Compra]:
         return self.__compras_realizadas 
