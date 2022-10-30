@@ -1,14 +1,14 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List
 
-from item.item import Item
+from item import Item
 
 
 @dataclass
 class ListaCompras:
-    __itens : List[Item]
     nome: str
     descricao: str | None
+    __itens: List[Item] = field(default_factory=lambda : [])
 
     def adicionar_item(self, item: Item) -> None:
         self.__itens.append(item)

@@ -7,8 +7,17 @@ Trabalho prático da disciplina de Testes de Software. Sistemas de Informação 
 - Luís Gustavo Costa
 
 # Sobre o sistema
+Sistema de lista de compras.
+Cadastrar listas, adicionar itens nas listas e cadastrar compras feitas em mercados.
+Indica onde comprar um item ou onde comprar uma lista inteira a partir de comparação de valores das listas no histórico.
 
 # Tecnologias utilizadas
+
+- Python 3.10
+- Typer - Python CLI
+- Pytest
+
+# Utilizando o App
 
 - Instalar dependências
 ```bash

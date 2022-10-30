@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
 
-from item.item import Item
-from mercado.mercado import Mercado
+from item import Item
+from mercado import Mercado
 
 @dataclass
 class ItemComprado:

@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
 from typing import List
-from item.item import Item
 from item.item_comprado import ItemComprado
 from lista.lista_compras import ListaCompras
 

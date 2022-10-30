@@ -1,17 +1,16 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List
-from compra_realizada.compra import Compra
-from item.item import Item
 
-from lista.lista_compras import ListaCompras
-from mercado.mercado import Mercado
+from compra_realizada import Compra
+from item import Item
+from lista import ListaCompras
+from mercado import Mercado
 
+@dataclass
 class Usuario:
-
-    def __init__(self) -> None:
-        self.__listas: List[ListaCompras] = []
-        self.__compras_realizadas: List[Compra] = []
-        self.__mercados: List[Mercado] = []
+    __listas: List[ListaCompras] = field(default_factory=lambda : [])
+    __compras_realizadas: List[Compra] = field(default_factory=lambda : [])
+    __mercados: List[Mercado] = field(default_factory=lambda : [])
 
     def obter_listas(self) -> List[ListaCompras]:
         return self.__listas
