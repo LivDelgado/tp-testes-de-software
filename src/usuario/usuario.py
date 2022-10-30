@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import date
 from typing import List, Optional
 
 from compra_realizada import Compra
@@ -45,18 +46,35 @@ class Usuario:
 
     def cadastrar_compra(self, compra: Compra) -> None:
         self.__compras_realizadas.append(compra)
+    
+    def obter_compra(self, data_compra: date, mercado: Mercado) -> Optional[Compra]:
+        return next(
+            (
+                compra for compra in self.__compras_realizadas
+                if compra.data_compra == data_compra and
+                compra.mercado == mercado
+            ),
+            None
+        )
 
     def remover_compra(self, compra: Compra) -> None:
         self.__compras_realizadas.remove(compra)
 
     def listar_mercados(self) -> List[Mercado]:
         return self.__mercados
+    
+    def obter_mercado(self, nome: str) -> Optional[Mercado]:
+        return next((mercado for mercado in self.__mercados if mercado.nome == nome), None)
 
     def cadastrar_mercado(self, mercado: Mercado) -> None:
-        self.__mercados.append(mercado)
+        if not self.obter_mercado(mercado.nome):
+            self.__mercados.append(mercado)
 
     def remover_mercado(self, mercado: Mercado) -> None:
         self.__mercados.remove(mercado)
+
+    def obter_data_ultima_compra(self) -> date:
+        return max(compra.data_compra for compra in self.__compras_realizadas)
 
     def obter_compra_mais_cara(self, mercado: Mercado | None = None) -> Compra:
         if mercado:

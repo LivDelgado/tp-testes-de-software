@@ -1,4 +1,4 @@
-from usuario.usuario import Usuario
+from usuario import Usuario
 from typing import List
 
 from item import Item

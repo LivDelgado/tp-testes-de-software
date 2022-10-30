@@ -1,5 +1,5 @@
 import pickle
-from dataclasses import asdict
+import os
 
 from usuario import Usuario
 
@@ -7,6 +7,11 @@ FILE_PATH = "./dados-usuario.pkl"
 
 
 class UsuarioService:
+    @staticmethod
+    def limpar_dados() -> None:
+        if os.path.exists(FILE_PATH):
+            os.remove(FILE_PATH)
+
     @staticmethod
     def salvar_dados_usuario(usuario: Usuario) -> None:
         arquivo = open(FILE_PATH, "wb")

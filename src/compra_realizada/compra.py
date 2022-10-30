@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 from decimal import Decimal
 from typing import List
@@ -14,7 +14,7 @@ class Compra:
     mercado: Mercado
     lista_compras_base: ListaCompras
     valor_total: Decimal
-    __itens_comprados: List[ItemComprado]
+    __itens_comprados: List[ItemComprado] = field(default_factory=lambda: [])
 
     def adicionar_item_comprado(self, item: ItemComprado) -> None:
         self.__itens_comprados.append(item)
