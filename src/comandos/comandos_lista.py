@@ -12,14 +12,14 @@ usuario = UsuarioService.obter_usuario_salvo_ou_criar_default()
 
 
 @lista_app.command("listar")
-def listas_listas_de_compras():
+def listar_listas_de_compras():
     listas = ListaService.obter_listas(usuario)
     for lista in listas:
         print(lista)
 
 
 @lista_app.command("adicionar")
-def adicionar_listas_de_compras(nome: str, descricao: Optional[str] = None):
+def adicionar_lista_de_compras(nome: str, descricao: Optional[str] = None):
     pedir_item = True
     itens: List[str] = []
     while pedir_item:
@@ -32,7 +32,7 @@ def adicionar_listas_de_compras(nome: str, descricao: Optional[str] = None):
 
 
 @lista_app.command("remover")
-def remover_listas_de_compras(nome: str):
+def remover_lista_de_compras(nome: str):
     ListaService.remover_lista(usuario, nome)
     UsuarioService.salvar_dados_usuario(usuario)
 
