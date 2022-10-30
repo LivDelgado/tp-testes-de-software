@@ -16,6 +16,9 @@ class Compra:
     valor_total: Decimal
     __itens_comprados: List[ItemComprado] = field(default_factory=lambda: [])
 
+    def __str__(self) -> str:
+        return f"{self.data_compra} - {self.mercado} => {self.valor_total}"
+
     def adicionar_item_comprado(self, item: ItemComprado) -> None:
         if not self.obter_item_comprado(item.item):
             self.__itens_comprados.append(item)

@@ -53,7 +53,7 @@ class ComprasService:
                     mercado=mercado,
                     quantidade=int(quantidade),
                 )
-                compra.adicionar_item_comprado(item)
+                compra.adicionar_item_comprado(item_comprado)
         except:
             raise ValueError("Item inválido.")
 
