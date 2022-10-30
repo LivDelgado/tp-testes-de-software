@@ -21,3 +21,6 @@ class ItemComprado:
     @property
     def valor_total(self) -> Decimal:
         return self.preco * self.quantidade
+
+    def __str__(self) -> str:
+        return f"{self.quantidade}x {self.item} - {self.preco} => {self.valor_total}"

@@ -3,7 +3,8 @@ from decimal import Decimal
 from typing import List
 
 from compra_realizada import Compra
-from item import ItemComprado
+from item import Item, ItemComprado
+
 
 class ComprasService:
     @staticmethod
@@ -21,7 +22,7 @@ class ComprasService:
         nome_mercado: str,
         nome_lista_base: str,
         valor_total: Decimal,
-        itens: List[ItemComprado]
+        itens: List[dict],
     ) -> None:
         mercado = usuario.obter_mercado(nome_mercado)
         if not mercado:
@@ -32,18 +33,36 @@ class ComprasService:
             raise ValueError("Essa lista não existe")
 
         compra = Compra(
-            data_compra = data_compra,
-            mercado = mercado,
-            lista_compras_base = lista,
-            valor_total = valor_total
+            data_compra=data_compra,
+            mercado=mercado,
+            lista_compras_base=lista,
+            valor_total=valor_total,
         )
-        for item in itens:
-            compra.adicionar_item_comprado(item)
+
+        try:
+            for item_cadastrado in itens:
+                preco = item_cadastrado["preco"]
+                nome_item = item_cadastrado["nome"]
+                quantidade = item_cadastrado["quantidade"]
+
+                item = Item(nome_item)
+                item_comprado = ItemComprado(
+                    item=item,
+                    preco=Decimal(preco),
+                    data_compra=data_compra,
+                    mercado=mercado,
+                    quantidade=int(quantidade),
+                )
+                compra.adicionar_item_comprado(item)
+        except:
+            raise ValueError("Item inválido.")
 
         usuario.cadastrar_compra(compra)
 
     @staticmethod
-    def remover_compra(usuario: "Usuario", data_compra: date, nome_mercado: str) -> None:
+    def remover_compra(
+        usuario: "Usuario", data_compra: date, nome_mercado: str
+    ) -> None:
         mercado = usuario.obter_mercado(nome_mercado)
         if not mercado:
             raise ValueError("Esse Mercado não existe")
@@ -51,6 +70,33 @@ class ComprasService:
         compra = usuario.obter_compra(data_compra, mercado)
         if not compra:
             raise ValueError("Essa compra não foi realizada")
-        
+
         usuario.remover_compra(compra)
 
+    @staticmethod
+    def listar_itens_compra(
+        usuario: "Usuario", data_compra: date, nome_mercado: str
+    ) -> List[ItemComprado]:
+        mercado = usuario.obter_mercado(nome_mercado)
+        if not mercado:
+            raise ValueError("Esse Mercado não existe")
+
+        compra = usuario.obter_compra(data_compra, mercado)
+        if not compra:
+            raise ValueError("Essa compra não foi realizada")
+
+        return compra.obter_itens_comprados()
+
+    @staticmethod
+    def obter_valor_extra(
+        usuario: "Usuario", data_compra: date, nome_mercado: str
+    ) -> Decimal:
+        mercado = usuario.obter_mercado(nome_mercado)
+        if not mercado:
+            raise ValueError("Esse Mercado não existe")
+
+        compra = usuario.obter_compra(data_compra, mercado)
+        if not compra:
+            raise ValueError("Essa compra não foi realizada")
+
+        return compra.obter_valor_itens_fora_da_lista()

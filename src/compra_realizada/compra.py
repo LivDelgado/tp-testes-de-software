@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 from datetime import date
 from decimal import Decimal
-from typing import List
-from item.item_comprado import ItemComprado
+from typing import List, Optional
+from item.item_comprado import ItemComprado, Item
 from lista.lista_compras import ListaCompras
 
 from mercado.mercado import Mercado
@@ -17,10 +17,22 @@ class Compra:
     __itens_comprados: List[ItemComprado] = field(default_factory=lambda: [])
 
     def adicionar_item_comprado(self, item: ItemComprado) -> None:
-        self.__itens_comprados.append(item)
+        if not self.obter_item_comprado(item.item):
+            self.__itens_comprados.append(item)
 
     def remover_item(self, item: ItemComprado) -> None:
-        self.__itens_comprados.remove(item)
+        if self.obter_item_comprado(item.item):
+            self.__itens_comprados.remove(item)
+
+    def obter_item_comprado(self, item: Item) -> Optional[ItemComprado]:
+        return next(
+            (
+                item_comprado
+                for item_comprado in self.__itens_comprados
+                if item_comprado.item == item
+            ),
+            None,
+        )
 
     def obter_itens_comprados(self) -> List[ItemComprado]:
         return self.__itens_comprados
