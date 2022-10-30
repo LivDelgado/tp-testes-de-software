@@ -24,7 +24,7 @@ def listas_listas_de_compras():
     ListaService.imprimir_listas(usuario)
 
 @lista_app.command("adicionar")
-def adicionar_listas_de_compras(nome: str, descricao: Optional[str]):
+def adicionar_listas_de_compras(nome: str, descricao: Optional[str] = None):
     pedir_item = True
     itens: List[str] = []
     while pedir_item:
@@ -34,6 +34,10 @@ def adicionar_listas_de_compras(nome: str, descricao: Optional[str]):
 
     ListaService.adicionar_lista(usuario, nome, descricao, itens)
     UsuarioService.salvar_dados_usuario(usuario)
+
+@lista_app.command("itens")
+def ver_itens_lista(nome: str):
+    ListaService.listar_itens(usuario, nome)
 
 if __name__ == "__main__":
     usuario = UsuarioService.obter_usuario_salvo_ou_criar_default()

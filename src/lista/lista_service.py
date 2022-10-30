@@ -18,3 +18,12 @@ class ListaService:
             lista.adicionar_item(Item(nome=item))
 
         usuario.adicionar_lista(lista)
+
+    @staticmethod
+    def listar_itens(usuario: Usuario, nome: str) -> None:
+        lista = usuario.obter_lista(nome)
+        if lista:
+            for item in lista.obter_itens():
+                print(item.nome)
+        else:
+            print("Essa lista não existe")

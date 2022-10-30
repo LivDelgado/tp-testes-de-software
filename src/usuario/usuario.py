@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List
+from typing import List, Optional
 
 from compra_realizada import Compra
 from item import Item
@@ -15,7 +15,13 @@ class Usuario:
     def obter_listas(self) -> List[ListaCompras]:
         return self.__listas
 
+    def obter_lista(self, nome: str) -> Optional[ListaCompras]:
+        return next((lista for lista in self.__listas if lista.nome == nome), None)
+
     def adicionar_lista(self, lista: ListaCompras) -> None:
+        if (self.obter_lista(lista.nome)):
+            raise ValueError("Não é permitido adicionar mais de uma lista com o mesmo nome")
+        
         self.__listas.append(lista)
 
     def remover_lista(self, lista: ListaCompras) -> None:

@@ -14,3 +14,8 @@ class ItemComprado:
     preco: Decimal
     data_compra: date
     mercado: Mercado
+    quantidade: int = 1
+
+    @property
+    def valor_total(self) -> Decimal:
+        return self.preco * self.quantidade
