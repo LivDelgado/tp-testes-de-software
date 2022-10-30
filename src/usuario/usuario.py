@@ -4,26 +4,25 @@ from typing import List, Optional
 
 from compra_realizada import Compra
 from item import Item
-from lista import ListaCompras
 from mercado import Mercado
 
 
 @dataclass
 class Usuario:
-    __listas: List[ListaCompras] = field(default_factory=lambda: [])
+    __listas: List["ListaCompras"] = field(default_factory=lambda: [])
     __compras_realizadas: List[Compra] = field(default_factory=lambda: [])
     __mercados: List[Mercado] = field(default_factory=lambda: [])
 
-    def obter_listas(self) -> List[ListaCompras]:
+    def obter_listas(self) -> List["ListaCompras"]:
         return self.__listas
 
-    def obter_lista(self, nome: str) -> Optional[ListaCompras]:
+    def obter_lista(self, nome: str) -> Optional["ListaCompras"]:
         for lista in self.__listas:
             if lista.nome == nome:
                 return lista
         return None
 
-    def adicionar_lista(self, lista: ListaCompras) -> None:
+    def adicionar_lista(self, lista: "ListaCompras") -> None:
         if self.obter_lista(lista.nome):
             raise ValueError(
                 "Não é permitido adicionar mais de uma lista com o mesmo nome"
@@ -89,7 +88,7 @@ class Usuario:
 
         return max(compra.valor_total for compra in self.__compras_realizadas)
 
-    def indicar_mercado_compra(self, lista_compras: ListaCompras) -> Mercado:
+    def indicar_mercado_compra(self, lista_compras: "ListaCompras") -> Mercado:
         """
         considerar compras realizadas no mercado
         menor valor médio das compras por mercado

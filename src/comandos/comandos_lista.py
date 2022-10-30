@@ -7,6 +7,8 @@ from lista import ListaService
 from usuario import UsuarioService
 
 lista_app = typer.Typer()
+itens_app = typer.Typer()
+lista_app.add_typer(itens_app, name="itens")
 
 usuario = UsuarioService.obter_usuario_salvo_ou_criar_default()
 
@@ -37,19 +39,19 @@ def remover_lista_de_compras(nome: str):
     UsuarioService.salvar_dados_usuario(usuario)
 
 
-@lista_app.command("itens")
+@itens_app.command("listar")
 def ver_itens_lista(nome: str):
     ListaService.listar_itens(usuario, nome)
 
 
-@lista_app.command("adicionar-item")
+@itens_app.command("adicionar")
 def adicionar_item_lista(nome: str):
     nome_item = Prompt.ask("Qual item quer adicionar?")
     ListaService.adicionar_item_lista(usuario, nome, nome_item)
     UsuarioService.salvar_dados_usuario(usuario)
 
 
-@lista_app.command("remover-item")
+@itens_app.command("remover")
 def remover_item_lista(nome: str):
     nome_item = Prompt.ask("Qual item quer remover?")
     ListaService.remover_item_lista(usuario, nome, nome_item)

@@ -4,7 +4,6 @@ from decimal import Decimal
 from typing import List, Optional
 
 from item.item_comprado import Item, ItemComprado
-from lista.lista_compras import ListaCompras
 from mercado.mercado import Mercado
 
 
@@ -12,7 +11,7 @@ from mercado.mercado import Mercado
 class Compra:
     data_compra: date
     mercado: Mercado
-    lista_compras_base: ListaCompras
+    lista_compras_base: "ListaCompras"
     valor_total: Decimal
     __itens_comprados: List[ItemComprado] = field(default_factory=lambda: [])
 
