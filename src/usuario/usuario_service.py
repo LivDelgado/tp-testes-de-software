@@ -7,7 +7,6 @@ FILE_PATH = "./dados-usuario.pkl"
 
 
 class UsuarioService:
-
     @staticmethod
     def salvar_dados_usuario(usuario: Usuario) -> None:
         arquivo = open(FILE_PATH, "wb")
@@ -23,4 +22,3 @@ class UsuarioService:
             return usuario
         except Exception as error:
             return Usuario()
-

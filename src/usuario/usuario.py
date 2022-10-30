@@ -6,11 +6,12 @@ from item import Item
 from lista import ListaCompras
 from mercado import Mercado
 
+
 @dataclass
 class Usuario:
-    __listas: List[ListaCompras] = field(default_factory=lambda : [])
-    __compras_realizadas: List[Compra] = field(default_factory=lambda : [])
-    __mercados: List[Mercado] = field(default_factory=lambda : [])
+    __listas: List[ListaCompras] = field(default_factory=lambda: [])
+    __compras_realizadas: List[Compra] = field(default_factory=lambda: [])
+    __mercados: List[Mercado] = field(default_factory=lambda: [])
 
     def obter_listas(self) -> List[ListaCompras]:
         return self.__listas
@@ -22,11 +23,13 @@ class Usuario:
         return None
 
     def adicionar_lista(self, lista: ListaCompras) -> None:
-        if (self.obter_lista(lista.nome)):
-            raise ValueError("Não é permitido adicionar mais de uma lista com o mesmo nome")
-        
+        if self.obter_lista(lista.nome):
+            raise ValueError(
+                "Não é permitido adicionar mais de uma lista com o mesmo nome"
+            )
+
         self.__listas.append(lista)
-    
+
     def remover_lista(self, nome: str) -> None:
         lista = self.obter_lista(nome)
         if not lista:
@@ -38,8 +41,8 @@ class Usuario:
             raise ValueError("Não existe esse item na lista") from error
 
     def obter_historico_compras(self) -> List[Compra]:
-        return self.__compras_realizadas 
-    
+        return self.__compras_realizadas
+
     def cadastrar_compra(self, compra: Compra) -> None:
         self.__compras_realizadas.append(compra)
 
@@ -47,8 +50,8 @@ class Usuario:
         self.__compras_realizadas.remove(compra)
 
     def listar_mercados(self) -> List[Mercado]:
-        return self.__mercados 
-    
+        return self.__mercados
+
     def cadastrar_mercado(self, mercado: Mercado) -> None:
         self.__mercados.append(mercado)
 
@@ -62,8 +65,9 @@ class Usuario:
                     compra.valor_total
                     for compra in self.__compras_realizadas
                     if compra.mercado == mercado
-                ])
-        
+                ]
+            )
+
         return max([compra.valor_total for compra in self.__compras_realizadas])
 
     def indicar_mercado_compra(self, lista_compras: ListaCompras) -> Mercado:
@@ -94,7 +98,11 @@ class Usuario:
         historico_compra_itens = []
         for compra in self.__compras_realizadas:
             itens_compra = compra.obter_itens_comprados()
-            historico_compra_itens += [item_comprado for item_comprado in itens_compra if item_comprado.item == item]
+            historico_compra_itens += [
+                item_comprado
+                for item_comprado in itens_compra
+                if item_comprado.item == item
+            ]
 
         item_mais_barato = None
 

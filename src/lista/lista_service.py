@@ -4,8 +4,8 @@ from typing import List
 from item import Item
 from lista import ListaCompras
 
-class ListaService:
 
+class ListaService:
     @staticmethod
     def obter_listas(usuario: Usuario) -> List[ListaCompras]:
         listas = usuario.obter_listas()
@@ -13,10 +13,11 @@ class ListaService:
             raise ValueError("Nenhuma lista encontrada")
 
         return listas
-            
 
     @staticmethod
-    def adicionar_lista(usuario: Usuario, nome: str, descricao: str | None, itens: List[str]) -> None:
+    def adicionar_lista(
+        usuario: Usuario, nome: str, descricao: str | None, itens: List[str]
+    ) -> None:
         lista = ListaCompras(nome=nome, descricao=descricao)
 
         for nome_item in itens:
@@ -24,7 +25,7 @@ class ListaService:
             lista.adicionar_item(novo_item)
 
         usuario.adicionar_lista(lista)
-    
+
     @staticmethod
     def remover_lista(usuario: Usuario, nome: str) -> None:
         usuario.remover_lista(nome)
