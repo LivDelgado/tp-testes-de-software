@@ -33,6 +33,11 @@ python app/lista-compras.py --help
 
 ```
 
+- Executar testes
+```bash
+pytest
+```
+
 - Contar número de linhas:
 ```bash
 

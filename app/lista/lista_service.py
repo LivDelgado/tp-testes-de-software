@@ -1,7 +1,7 @@
 from typing import List
 
 from app.item.item import Item
-from app.lista.lista import ListaCompras
+from app.lista.lista_compras import ListaCompras
 from app.usuario.usuario import Usuario
 
 

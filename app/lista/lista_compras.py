@@ -18,7 +18,8 @@ class ListaCompras:
             self.__itens.append(item)
 
     def remover_item(self, item: Item) -> None:
-        self.__itens.remove(item)
+        if self.obter_item(item):
+            self.__itens.remove(item)
 
     def obter_itens(self) -> List[Item]:
         return self.__itens
