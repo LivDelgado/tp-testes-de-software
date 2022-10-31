@@ -29,7 +29,7 @@ pip install -r requirements.txt
 - Executar app
 ```bash
 
-python app/lista-compras.py --help
+python lista-compras.py --help
 
 ```
 
