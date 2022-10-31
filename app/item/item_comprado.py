@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
+
 from app.item.item import Item
 from app.mercado.mercado import Mercado
 

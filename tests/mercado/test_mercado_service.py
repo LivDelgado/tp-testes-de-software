@@ -1,12 +1,11 @@
 from unittest import TestCase
+
 from app.mercado.mercado import Mercado
 from app.mercado.mercado_service import MercadoService
-
 from app.usuario.usuario import Usuario
 
 
 class TestMercadoService(TestCase):
-
     def setUp(self) -> None:
         self.usuario = Usuario()
         self.mercado_service = MercadoService()

@@ -5,10 +5,9 @@ from typing import Dict, List
 import typer
 from rich.prompt import Prompt
 
-from app.usuario.usuario_service import UsuarioService
 from app.compra_realizada.compras_service import ComprasService
 from app.lista.lista_service import ListaService
-
+from app.usuario.usuario_service import UsuarioService
 
 compras_app = typer.Typer()
 
@@ -40,7 +39,11 @@ def adicionar_compra():
         if adicionar_item:
             quantidade_item = Prompt.ask("Quantos você comprou?")
             valor_item = Prompt.ask("Quanto foi cada item?")
-            item_lista_comprado = {"preco": valor_item, "quantidade": quantidade_item, "nome": item.nome}
+            item_lista_comprado = {
+                "preco": valor_item,
+                "quantidade": quantidade_item,
+                "nome": item.nome,
+            }
 
             itens.append(item_lista_comprado)
 
