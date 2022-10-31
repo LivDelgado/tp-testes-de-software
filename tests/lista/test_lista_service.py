@@ -3,7 +3,7 @@ from app.lista.lista_compras import ListaCompras
 from app.lista.lista_service import ListaService
 from app.usuario.usuario import Usuario
 
-
+# TODO - adicionar restante dos testes
 class TestListaService(TestCase):
     def setUp(self) -> None:
         self.usuario = Usuario()
