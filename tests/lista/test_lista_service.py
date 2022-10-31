@@ -1,7 +1,9 @@
 from unittest import TestCase
+
 from app.lista.lista_compras import ListaCompras
 from app.lista.lista_service import ListaService
 from app.usuario.usuario import Usuario
+
 
 # TODO - adicionar restante dos testes
 class TestListaService(TestCase):
@@ -20,4 +22,3 @@ class TestListaService(TestCase):
         listas = self.lista_service.obter_listas(self.usuario)
 
         self.assertEqual(1, len(listas))
-
