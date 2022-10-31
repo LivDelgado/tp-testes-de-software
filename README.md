@@ -15,7 +15,7 @@ Indica onde comprar um item ou onde comprar uma lista inteira a partir de compar
 
 - Python 3.10
 - Typer - Python CLI
-- Pytest
+- Pytest + Unittest
 
 # Utilizando o App
 
@@ -29,7 +29,7 @@ pip install -r requirements.txt
 - Executar app
 ```bash
 
-python src/app-lista-compras.py --help
+python app/lista-compras.py --help
 
 ```
 

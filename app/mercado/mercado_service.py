@@ -1,6 +1,6 @@
 from typing import List
 
-from mercado import Mercado
+from app.mercado.mercado import Mercado
 
 
 class MercadoService:
