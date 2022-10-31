@@ -41,12 +41,15 @@ class Compra:
 
     def obter_valor_itens_fora_da_lista(self) -> Decimal:
         itens_fora_da_lista = self.obter_itens_fora_da_lista()
-        return sum(item.preco for item in itens_fora_da_lista)
+        return sum(item.valor_total for item in itens_fora_da_lista)
 
     def obter_itens_fora_da_lista(self):
         itens_lista_base = {
             item.nome: True for item in self.lista_compras_base.obter_itens()
         }
-        return [
-            item for item in self.__itens_comprados if not itens_lista_base[item.nome]
+        itens_fora_da_lista = [
+            item_comprado
+            for item_comprado in self.__itens_comprados
+            if not itens_lista_base[item_comprado.item.nome]
         ]
+        return itens_fora_da_lista

@@ -6,6 +6,8 @@ import typer
 from rich.prompt import Prompt
 
 from compra_realizada import ComprasService
+from item import item_comprado
+from lista.lista_service import ListaService
 from usuario import UsuarioService
 
 compras_app = typer.Typer()
@@ -24,13 +26,25 @@ def listar_historico_compras():
 def adicionar_compra():
     mercado = Prompt.ask("Em qual mercado você comprou?")
     data_compra_str = Prompt.ask("Quando foi a compra? dd-MM-YYYY")
-    data_compra = datetime.strptime(data_compra_str, "%d/%m/%Y").date()
-    lista_base = Prompt.ask("Qual lista foi usada?")
+    data_compra = datetime.strptime(data_compra_str, "%d-%m-%Y").date()
     valor_total_str = Prompt.ask("Qual foi o valor da compra?")
     valor_total = Decimal(valor_total_str)
 
-    pedir_item = True
+    lista_base = Prompt.ask("Qual lista foi usada?")
+    itens_lista = ListaService.listar_itens(usuario, lista_base)
+
     itens: List[Dict] = []
+
+    for item in itens_lista:
+        adicionar_item = typer.confirm(f"O item {item} foi comprado?")
+        if adicionar_item:
+            quantidade_item = Prompt.ask("Quantos você comprou?")
+            valor_item = Prompt.ask("Quanto foi cada item?")
+            item_lista_comprado = {"preco": valor_item, "quantidade": quantidade_item, "nome": item.nome}
+
+            itens.append(item_lista_comprado)
+
+    pedir_item = typer.confirm(f"Você comprou algum item fora da lista {lista_base}?")
     while pedir_item:
         nome_item = Prompt.ask("Qual item quer adicionar?")
         quantidade_item = Prompt.ask("Quantos você comprou?")
@@ -57,7 +71,7 @@ def adicionar_compra():
 def remover_compra():
     mercado = Prompt.ask("Em qual mercado você comprou?")
     data_compra_str = Prompt.ask("Quando foi a compra? dd-MM-YYYY")
-    data_compra = datetime.strptime(data_compra_str, "%d/%m/%Y").date()
+    data_compra = datetime.strptime(data_compra_str, "%d-%m-%Y").date()
 
     ComprasService.remover_compra(usuario, data_compra, mercado)
     UsuarioService.salvar_dados_usuario(usuario)
@@ -67,7 +81,7 @@ def remover_compra():
 def listar_itens_compra():
     mercado = Prompt.ask("Em qual mercado você comprou?")
     data_compra_str = Prompt.ask("Quando foi a compra? dd-MM-YYYY")
-    data_compra = datetime.strptime(data_compra_str, "%d/%m/%Y").date()
+    data_compra = datetime.strptime(data_compra_str, "%d-%m-%Y").date()
 
     itens = ComprasService.listar_itens_compra(usuario, data_compra, mercado)
     for item in itens:
@@ -78,7 +92,7 @@ def listar_itens_compra():
 def obter_valor_extra():
     mercado = Prompt.ask("Em qual mercado você comprou?")
     data_compra_str = Prompt.ask("Quando foi a compra? dd-MM-YYYY")
-    data_compra = datetime.strptime(data_compra_str, "%d/%m/%Y").date()
+    data_compra = datetime.strptime(data_compra_str, "%d-%m-%Y").date()
 
     valor_extra = ComprasService.obter_valor_extra(usuario, data_compra, mercado)
     print(valor_extra)

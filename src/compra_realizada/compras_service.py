@@ -54,8 +54,8 @@ class ComprasService:
                     quantidade=int(quantidade),
                 )
                 compra.adicionar_item_comprado(item_comprado)
-        except:
-            raise ValueError("Item inválido.")
+        except Exception as error:
+            raise ValueError("Item inválido.") from error
 
         usuario.cadastrar_compra(compra)
 
