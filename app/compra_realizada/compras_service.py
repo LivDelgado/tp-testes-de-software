@@ -2,8 +2,9 @@ from datetime import date
 from decimal import Decimal
 from typing import List
 
-from compra_realizada import Compra
-from item import Item, ItemComprado
+from app.compra_realizada.compra import Compra
+from app.item.item import Item
+from app.item.item_comprado import ItemComprado
 
 
 class ComprasService:

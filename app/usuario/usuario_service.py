@@ -1,7 +1,7 @@
 import os
 import pickle
 
-from usuario import Usuario
+from app.usuario.usuario import Usuario
 
 FILE_PATH = "./dados-usuario.pkl"
 

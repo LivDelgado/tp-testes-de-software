@@ -5,10 +5,10 @@ from typing import Dict, List
 import typer
 from rich.prompt import Prompt
 
-from compra_realizada import ComprasService
-from item import item_comprado
-from lista.lista_service import ListaService
-from usuario import UsuarioService
+from app.usuario.usuario_service import UsuarioService
+from app.compra_realizada.compras_service import ComprasService
+from app.lista.lista_service import ListaService
+
 
 compras_app = typer.Typer()
 

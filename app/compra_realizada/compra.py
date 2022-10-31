@@ -3,8 +3,8 @@ from datetime import date
 from decimal import Decimal
 from typing import List, Optional
 
-from item.item_comprado import Item, ItemComprado
-from mercado.mercado import Mercado
+from app.item.item_comprado import Item, ItemComprado
+from app.mercado.mercado import Mercado
 
 
 @dataclass

@@ -3,8 +3,8 @@ from typing import List, Optional
 import typer
 from rich.prompt import Prompt
 
-from lista import ListaService
-from usuario import UsuarioService
+from app.lista.lista_service import ListaService
+from app.usuario.usuario_service import UsuarioService
 
 lista_app = typer.Typer()
 itens_app = typer.Typer()

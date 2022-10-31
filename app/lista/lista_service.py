@@ -1,8 +1,8 @@
 from typing import List
 
-from item import Item
-from lista import ListaCompras
-from usuario import Usuario
+from app.item.item import Item
+from app.lista.lista import ListaCompras
+from app.usuario.usuario import Usuario
 
 
 class ListaService:

@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
 
-from item import Item
+from app.item.item import Item
 
 
 @dataclass

@@ -2,9 +2,9 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import List, Optional
 
-from compra_realizada import Compra
-from item import Item
-from mercado import Mercado
+from app.compra_realizada.compra import Compra
+from app.item.item import Item
+from app.mercado.mercado import Mercado
 
 
 @dataclass

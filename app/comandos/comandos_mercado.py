@@ -1,7 +1,7 @@
 import typer
 
-from mercado import MercadoService
-from usuario import UsuarioService
+from app.mercado.mercado_service import MercadoService
+from app.usuario.usuario_service import UsuarioService
 
 mercados_app = typer.Typer()
 
