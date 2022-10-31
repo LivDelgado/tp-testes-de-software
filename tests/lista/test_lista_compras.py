@@ -1,4 +1,3 @@
-from pydoc import describe
 from unittest import TestCase
 
 from app.item.item import Item
