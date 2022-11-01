@@ -41,5 +41,5 @@ pytest
 - Contar número de linhas:
 ```bash
 
-pygount --format=summary --suffix=py
+pygount --format=summary --suffix=py --folders-to-skip tests
 ```

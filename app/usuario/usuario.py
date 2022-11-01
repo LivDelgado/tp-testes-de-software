@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import date
+from decimal import Decimal
 from typing import List, Optional
 
 from app.compra_realizada.compra import Compra
@@ -35,16 +36,14 @@ class Usuario:
         if not lista:
             raise ValueError("Essa lista não existe")
 
-        try:
-            self.__listas.remove(lista)
-        except Exception as error:
-            raise ValueError("Não existe esse item na lista") from error
+        self.__listas.remove(lista)
 
     def obter_historico_compras(self) -> List[Compra]:
         return self.__compras_realizadas
 
     def cadastrar_compra(self, compra: Compra) -> None:
-        self.__compras_realizadas.append(compra)
+        if not self.obter_compra(compra.data_compra, compra.mercado):
+            self.__compras_realizadas.append(compra)
 
     def obter_compra(self, data_compra: date, mercado: Mercado) -> Optional[Compra]:
         return next(
@@ -57,7 +56,8 @@ class Usuario:
         )
 
     def remover_compra(self, compra: Compra) -> None:
-        self.__compras_realizadas.remove(compra)
+        if self.obter_compra(compra.data_compra, compra.mercado):
+            self.__compras_realizadas.remove(compra)
 
     def listar_mercados(self) -> List[Mercado]:
         return self.__mercados
@@ -78,15 +78,25 @@ class Usuario:
     def obter_data_ultima_compra(self) -> date:
         return max(compra.data_compra for compra in self.__compras_realizadas)
 
-    def obter_compra_mais_cara(self, mercado: Mercado | None = None) -> Compra:
+    def obter_valor_compra_mais_cara(
+        self, mercado: Mercado | None = None
+    ) -> Decimal | None:
+        if not self.__compras_realizadas:
+            return None
+
         if mercado:
             return max(
-                compra.valor_total
-                for compra in self.__compras_realizadas
-                if compra.mercado == mercado
+                (
+                    compra.valor_total
+                    for compra in self.__compras_realizadas
+                    if compra.mercado == mercado
+                ),
+                default=None,
             )
 
-        return max(compra.valor_total for compra in self.__compras_realizadas)
+        return max(
+            (compra.valor_total for compra in self.__compras_realizadas), default=None
+        )
 
     def indicar_mercado_compra(self, lista_compras: "ListaCompras") -> Mercado:
         """
@@ -104,6 +114,7 @@ class Usuario:
 
         minimo_valor_compra = None
         mercado_minimo_valor = None
+
         for mercado, compras in compras_por_mercado.items():
             valor_medio = sum(compra.valor_total for compra in compras) / len(compras)
             if not minimo_valor_compra or valor_medio < minimo_valor_compra:
