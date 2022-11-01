@@ -25,5 +25,5 @@ class UsuarioService:
             usuario = pickle.load(arquivo)
             arquivo.close()
             return usuario
-        except Exception as error:
+        except:
             return Usuario()
