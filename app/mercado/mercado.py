@@ -7,3 +7,6 @@ class Mercado:
 
     def __str__(self) -> str:
         return self.nome
+
+    def __hash__(self):
+        return hash(self.nome)
