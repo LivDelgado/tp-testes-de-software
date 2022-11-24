@@ -11,11 +11,10 @@ from app.usuario.usuario_service import UsuarioService
 
 compras_app = typer.Typer()
 
-usuario = UsuarioService.obter_usuario_salvo_ou_criar_default()
-
 
 @compras_app.command("listar")
 def listar_historico_compras():
+    usuario = UsuarioService.obter_usuario_salvo_ou_criar_default()
     compras = ComprasService.obter_historico_compras(usuario)
     for compra in compras:
         print(compra)
@@ -23,6 +22,7 @@ def listar_historico_compras():
 
 @compras_app.command("adicionar")
 def adicionar_compra():
+    usuario = UsuarioService.obter_usuario_salvo_ou_criar_default()
     mercado = Prompt.ask("Em qual mercado você comprou?")
     data_compra_str = Prompt.ask("Quando foi a compra? dd-MM-YYYY")
     data_compra = datetime.strptime(data_compra_str, "%d-%m-%Y").date()
@@ -72,6 +72,7 @@ def adicionar_compra():
 
 @compras_app.command("remover")
 def remover_compra():
+    usuario = UsuarioService.obter_usuario_salvo_ou_criar_default()
     mercado = Prompt.ask("Em qual mercado você comprou?")
     data_compra_str = Prompt.ask("Quando foi a compra? dd-MM-YYYY")
     data_compra = datetime.strptime(data_compra_str, "%d-%m-%Y").date()
@@ -82,6 +83,7 @@ def remover_compra():
 
 @compras_app.command("itens")
 def listar_itens_compra():
+    usuario = UsuarioService.obter_usuario_salvo_ou_criar_default()
     mercado = Prompt.ask("Em qual mercado você comprou?")
     data_compra_str = Prompt.ask("Quando foi a compra? dd-MM-YYYY")
     data_compra = datetime.strptime(data_compra_str, "%d-%m-%Y").date()
@@ -93,6 +95,7 @@ def listar_itens_compra():
 
 @compras_app.command("pago-extra")
 def obter_valor_extra():
+    usuario = UsuarioService.obter_usuario_salvo_ou_criar_default()
     mercado = Prompt.ask("Em qual mercado você comprou?")
     data_compra_str = Prompt.ask("Quando foi a compra? dd-MM-YYYY")
     data_compra = datetime.strptime(data_compra_str, "%d-%m-%Y").date()
